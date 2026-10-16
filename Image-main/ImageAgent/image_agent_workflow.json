@@ -1,0 +1,71 @@
+{
+    "name": "image_agent_workflow",
+    "tasks": [
+        {
+            "name": "ImageLoader",
+            "taskReferenceName": "image_loader_task",
+            "inputParameters": {
+                "image_path": "${workflow.input.image_path}"
+            },
+            "type": "SIMPLE",
+            "taskDefinition": {}
+        },
+        {
+            "name": "Planner",
+            "taskReferenceName": "planner_task",
+            "inputParameters": {
+                "user_prompt": "${workflow.input.user_prompt}"
+            },
+            "type": "SIMPLE",
+            "taskDefinition": {}
+        },
+        {
+            "name": "OCRWorker",
+            "taskReferenceName": "ocr_task",
+            "inputParameters": {
+                "run_ocr": "${planner_task.output.run_ocr}"
+            },
+            "type": "SIMPLE",
+            "taskDefinition": {}
+        },
+        {
+            "name": "DetectorWorker",
+            "taskReferenceName": "detector_task",
+            "inputParameters": {
+                "run_detector": "${planner_task.output.run_detector}"
+            },
+            "type": "SIMPLE",
+            "taskDefinition": {}
+        },
+        {
+            "name": "CaptionWorker",
+            "taskReferenceName": "caption_task",
+            "inputParameters": {
+                "run_caption": "${planner_task.output.run_caption}"
+            },
+            "type": "SIMPLE",
+            "taskDefinition": {}
+        },
+        {
+            "name": "ReasoningWorker",
+            "taskReferenceName": "reasoning_task",
+            "inputParameters": {
+                "user_prompt": "${workflow.input.user_prompt}",
+                "ocr_output": "${ocr_task.output}",
+                "detector_output": "${detector_task.output.objects}",
+                "caption_output": "${caption_task.output.caption}"
+            },
+            "type": "SIMPLE",
+            "taskDefinition": {}
+        }
+    ],
+    "inputParameters": [],
+    "outputParameters": {},
+    "failureWorkflow": "",
+    "schemaVersion": 2,
+    "workflowStatusListenerEnabled": false,
+    "ownerEmail": "default@omagent.ai",
+    "timeoutSeconds": 60,
+    "variables": {},
+    "inputTemplate": {}
+}

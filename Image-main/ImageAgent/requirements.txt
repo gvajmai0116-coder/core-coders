@@ -1,0 +1,19 @@
+# Core Framework
+omagent-core
+
+# Web UI
+streamlit
+
+# Computer Vision & OCR
+opencv-python
+pillow
+paddleocr
+paddlepaddle
+ultralytics
+transformers
+torch
+torchvision
+
+# Utilities
+pyyaml
+colorama
